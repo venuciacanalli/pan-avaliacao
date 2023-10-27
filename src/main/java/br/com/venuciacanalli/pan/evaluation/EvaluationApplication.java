@@ -1,13 +1,13 @@
-package br.com.venuciacanalli.panavaliacao;
+package br.com.venuciacanalli.pan.evaluation;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class PanAvaliacaoApplication {
+public class EvaluationApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(PanAvaliacaoApplication.class, args);
+		SpringApplication.run(EvaluationApplication.class, args);
 	}
 
 }
