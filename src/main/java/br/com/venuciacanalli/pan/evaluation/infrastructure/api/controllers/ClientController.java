@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/v1/client")
+@RequestMapping(value = "/api/v1/client", produces = "application/json;charset=UTF-8")
 public class ClientController {
 
     @Autowired

@@ -1,6 +1,7 @@
 package br.com.venuciacanalli.pan.evaluation.application.usecases;
 
 import br.com.venuciacanalli.pan.evaluation.application.gateways.IClientGateway;
+import br.com.venuciacanalli.pan.evaluation.domain.entities.Address;
 import br.com.venuciacanalli.pan.evaluation.domain.entities.Client;
 import br.com.venuciacanalli.pan.evaluation.domain.exceptions.EmptyArgumentException;
 import br.com.venuciacanalli.pan.evaluation.domain.exceptions.ObjectWithAttributeNotFoundException;
@@ -30,9 +31,27 @@ class GetClientByCpfUseCaseTest {
     void whenRunGetClientByCpfItShouldReturnClient() {
         String cpf = "52350631044";
         String name = "John Smith";
+        Long addressId = 1L;
+        String street = "Rua da Cantareira";
+        String number = "306";
+        String complement = "Bl. 8 Ap 203";
+        String neighborhood = "Centro";
+        String cep = "01024900";
+        String city = "São Paulo";
+        String uf = "SP";
+        Address adressMock = mock(Address.class);
+        when(adressMock.id()).thenReturn(addressId);
+        when(adressMock.street()).thenReturn(street);
+        when(adressMock.number()).thenReturn(number);
+        when(adressMock.complement()).thenReturn(complement);
+        when(adressMock.neighborhood()).thenReturn(neighborhood);
+        when(adressMock.cep()).thenReturn(cep);
+        when(adressMock.city()).thenReturn(city);
+        when(adressMock.uf()).thenReturn(uf);
         Client clientMock = mock(Client.class);
         when(clientMock.cpf()).thenReturn(cpf);
         when(clientMock.name()).thenReturn(name);
+        when(clientMock.address()).thenReturn(adressMock);
         when(clientGateway.findClientByCpf(cpf)).thenReturn(Optional.of(clientMock));
 
         Client client = this.getClientByCpfUseCase.run(cpf);
@@ -41,6 +60,16 @@ class GetClientByCpfUseCaseTest {
         assertNotNull(client);
         assertEquals(cpf, client.cpf());
         assertEquals(name, client.name());
+        Address address = client.address();
+        assertNotNull(address);
+        assertEquals(addressId, address.id());
+        assertEquals(street, address.street());
+        assertEquals(number, address.number());
+        assertEquals(complement, address.complement());
+        assertEquals(neighborhood, address.neighborhood());
+        assertEquals(cep, address.cep());
+        assertEquals(city, address.city());
+        assertEquals(uf, address.uf());
     }
 
     @Test

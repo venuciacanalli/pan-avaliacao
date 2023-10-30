@@ -6,17 +6,21 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.times;
 
 @ExtendWith(MockitoExtension.class)
 class ClientResponseMapperTest {
 
     @InjectMocks
     private ClientResponseMapper clientResponseMapper;
+
+    @Mock
+    private AddressResponseMapper addressResponseMapper;
 
     @Test
     @DisplayName("When run toResponse it should return client")
@@ -26,19 +30,21 @@ class ClientResponseMapperTest {
         Client clientMock = mock(Client.class);
         when(clientMock.cpf()).thenReturn(cpf);
         when(clientMock.name()).thenReturn(name);
+        when(this.addressResponseMapper.toResponse(null)).thenReturn(null);
 
         ClientResponse response = this.clientResponseMapper.toResponse(clientMock);
 
         assertNotNull(response);
         assertEquals(cpf, response.cpf());
         assertEquals(name, response.name());
+        verify(addressResponseMapper, times(1)).toResponse(null);
     }
 
     @Test
-    @DisplayName("When run toResponse with null client it should throw illegal argument exception")
-    void whenRunToDomainWithNullClientEntityItShouldThrowIllegalArgumentException() {
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> this.clientResponseMapper.toResponse(null));
-        assertEquals("client can't be null", exception.getMessage());
+    @DisplayName("When run toResponse with null client it should return null")
+    void whenRunToDomainWithNullClientEntityItShouldReturnNull() {
+        assertNull(this.clientResponseMapper.toResponse(null));
+        verify(addressResponseMapper, times(0)).toResponse(any());
     }
 
 }

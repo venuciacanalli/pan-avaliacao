@@ -2,6 +2,7 @@ package br.com.venuciacanalli.pan.evaluation.infrastructure.api.controllers;
 
 import br.com.venuciacanalli.pan.evaluation.application.usecases.IGetClientByCpfUseCase;
 import br.com.venuciacanalli.pan.evaluation.domain.entities.Client;
+import br.com.venuciacanalli.pan.evaluation.infrastructure.api.dtos.AddressResponse;
 import br.com.venuciacanalli.pan.evaluation.infrastructure.api.dtos.ClientResponse;
 import br.com.venuciacanalli.pan.evaluation.infrastructure.api.mappers.ClientResponseMapper;
 import org.junit.jupiter.api.DisplayName;
@@ -21,6 +22,7 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -42,16 +44,16 @@ class ClientControllerTest {
     @DisplayName("find by cpf")
     void findByCpf() throws Exception {
         Client clientMock = mock(Client.class);
-        ClientResponse clientResponse = new ClientResponse( "86109026093", "John Smith");
+        AddressResponse addressResponse = new AddressResponse(1L, "Rua da Cantareira", "306", "Bl. 8 Ap 203", "Centro","01024900", "São Paulo", "SP");
+        ClientResponse clientResponse = new ClientResponse( "86109026093", "John Smith", addressResponse);
         when(getClientByCpfUseCase.run("86109026093")).thenReturn(clientMock);
         when(clientResponseMapper.toResponse(clientMock)).thenReturn(clientResponse);
         var response = this.mvc.perform(get("/api/v1/client/86109026093"))
+                .andExpect(content().contentType("application/json;charset=UTF-8"))
                 .andReturn().getResponse();
         assertNotNull(response);
         assertEquals(HttpStatus.OK.value(), response.getStatus());
-        var expectedJson = clientResponseJacksonTester.write(
-                new ClientResponse("86109026093", "John Smith")
-        ).getJson();
+        var expectedJson = clientResponseJacksonTester.write(clientResponse).getJson();
         assertEquals(expectedJson, response.getContentAsString());
     }
 
