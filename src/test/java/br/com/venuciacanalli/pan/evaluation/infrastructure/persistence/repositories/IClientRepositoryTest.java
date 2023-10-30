@@ -32,7 +32,6 @@ class IClientRepositoryTest {
     @Test
     @DisplayName("should return empty value when there is no client for the given cpf")
     void shouldReturnEmptyValueWhenThereIsNoClientForTheGivenCpf() {
-        this.clientRepository.save(new ClientEntity("86109026093", "John Smith"));
         var optClient = this.clientRepository.findByCpf("86109026093");
         assertTrue(optClient.isEmpty());
     }
