@@ -5,5 +5,5 @@ import br.com.venuciacanalli.pan.evaluation.domain.entities.Client;
 import java.util.Optional;
 
 public interface IClientGateway {
-    Optional<Client> findUserByCpf(String cpf);
+    Optional<Client> findClientByCpf(String cpf);
 }

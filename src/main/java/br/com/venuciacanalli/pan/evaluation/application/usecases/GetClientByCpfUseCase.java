@@ -18,7 +18,7 @@ public class GetClientByCpfUseCase implements IGetClientByCpfUseCase{
     public Client run(String cpf)  {
         if(cpf == null || cpf.trim().isEmpty())
             throw new EmptyArgumentException("cpf");
-        Optional<Client> client =  clientGateway.findUserByCpf(cpf);
+        Optional<Client> client =  clientGateway.findClientByCpf(cpf);
         return client.orElseThrow(() -> new ObjectWithAttributeNotFoundException("Client", "cpf", cpf));
     }
 }

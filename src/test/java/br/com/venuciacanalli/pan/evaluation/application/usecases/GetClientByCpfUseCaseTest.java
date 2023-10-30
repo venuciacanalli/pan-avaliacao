@@ -33,11 +33,11 @@ class GetClientByCpfUseCaseTest {
         Client clientMock = mock(Client.class);
         when(clientMock.cpf()).thenReturn(cpf);
         when(clientMock.name()).thenReturn(name);
-        when(clientGateway.findUserByCpf(cpf)).thenReturn(Optional.of(clientMock));
+        when(clientGateway.findClientByCpf(cpf)).thenReturn(Optional.of(clientMock));
 
         Client client = this.getClientByCpfUseCase.run(cpf);
 
-        verify(clientGateway, times(1)).findUserByCpf(cpf);
+        verify(clientGateway, times(1)).findClientByCpf(cpf);
         assertNotNull(client);
         assertEquals(cpf, client.cpf());
         assertEquals(name, client.name());
@@ -48,7 +48,7 @@ class GetClientByCpfUseCaseTest {
     void whenRunGetClientByCpfWithNullCpfItShouldThrowEmptyArgumentException() {
         Exception exception = assertThrows(EmptyArgumentException.class, () -> this.getClientByCpfUseCase.run(null));
         assertEquals("The argument cpf can't be null or empty.", exception.getMessage());
-        verify(clientGateway, times(0)).findUserByCpf(any());
+        verify(clientGateway, times(0)).findClientByCpf(any());
     }
 
     @Test
@@ -56,16 +56,16 @@ class GetClientByCpfUseCaseTest {
     void whenRunGetClientByCpfWithBlankCpfItShouldThrowEmptyArgumentException() {
         Exception exception = assertThrows(EmptyArgumentException.class, () -> this.getClientByCpfUseCase.run(" "));
         assertEquals("The argument cpf can't be null or empty.", exception.getMessage());
-        verify(clientGateway, times(0)).findUserByCpf(any());
+        verify(clientGateway, times(0)).findClientByCpf(any());
     }
 
     @Test
     @DisplayName("When run get client by cpf it should throw ObjectWithAttributeNotFoundException")
     void whenRunGetClientByCpfWithoutSavedClientItShouldThrowsNotFoundException() {
         String cpf = "52350631044";
-        when(clientGateway.findUserByCpf(cpf)).thenReturn(Optional.empty());
+        when(clientGateway.findClientByCpf(cpf)).thenReturn(Optional.empty());
         Exception exception = assertThrows(ObjectWithAttributeNotFoundException.class, () -> this.getClientByCpfUseCase.run(cpf));
         assertEquals("Client with cpf 52350631044 not found", exception.getMessage());
-        verify(clientGateway, times(1)).findUserByCpf(cpf);
+        verify(clientGateway, times(1)).findClientByCpf(cpf);
     }
 }
