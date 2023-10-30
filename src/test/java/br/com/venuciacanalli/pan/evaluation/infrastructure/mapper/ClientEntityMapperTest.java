@@ -34,7 +34,7 @@ class ClientEntityMapperTest {
     }
 
     @Test
-    @DisplayName("When run toDomain whith null client entity it should throw illegal argument exception")
+    @DisplayName("When run toDomain with null client entity it should throw illegal argument exception")
     void whenRunToDomainWithNullClientEntityItShouldThrowIllegalArgumentException() {
         Exception exception = assertThrows(IllegalArgumentException.class, () -> this.clientEntityMapper.toDomain(null));
         assertEquals("clientEntity can't be null", exception.getMessage());
