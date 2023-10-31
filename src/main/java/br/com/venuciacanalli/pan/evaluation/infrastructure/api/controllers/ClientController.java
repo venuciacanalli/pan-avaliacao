@@ -24,11 +24,6 @@ public class ClientController {
     @Autowired
     private ClientResponseMapper clientResponseMapper;
 
-    @GetMapping
-    public String hello(){
-        return "hello";
-    }
-
     @GetMapping("/{cpf}")
     public ResponseEntity<ClientResponse> findByCpf(@Valid @NotBlank @PathVariable("cpf") String cpf){
         LOGGER.info(String.format("start find by cpf (%s)", cpf));

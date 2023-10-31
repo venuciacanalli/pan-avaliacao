@@ -31,9 +31,9 @@ public class AppConfig {
     IGetProductsByClientUseCase getProductsByClientUseCase(final IClientProductsGateway clientProductsGateway, final StringArgumentValidator stringArgumentValidator, final ClientExistsValidator clientExistsValidator){
         return new GetProductsByClientUseCase(clientProductsGateway, stringArgumentValidator, clientExistsValidator);
     }
-
+    
     @Bean
-    IGetAddressByCepUseCase getCepsUseCase(final IAddressHelperGateway addressHelperGateway, final StringArgumentValidator stringArgumentValidator){
+    IGetAddressByCepUseCase getAddressByCepUseCase(final IAddressHelperGateway addressHelperGateway, final StringArgumentValidator stringArgumentValidator){
         return new GetAddressByCepUseCase(addressHelperGateway, stringArgumentValidator);
     }
 }
