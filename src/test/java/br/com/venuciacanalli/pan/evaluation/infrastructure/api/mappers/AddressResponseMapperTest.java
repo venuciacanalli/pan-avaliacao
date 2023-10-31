@@ -8,6 +8,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.UUID;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -20,7 +22,7 @@ class AddressResponseMapperTest {
     @Test
     @DisplayName("When run toResponse it should return address")
     void whenRunToResponseItShouldReturnAddress() {
-        Long addressId = 1L;
+        UUID addressId = UUID.fromString("4cc493ca-6561-4e55-8a1e-aa527d9034f2");
         String street = "Rua da Cantareira";
         String number = "306";
         String complement = "Bl. 8 Ap 203";

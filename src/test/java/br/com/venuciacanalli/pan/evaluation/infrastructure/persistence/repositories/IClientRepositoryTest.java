@@ -35,4 +35,19 @@ class IClientRepositoryTest {
         var optClient = this.clientRepository.findByCpf("86109026093");
         assertTrue(optClient.isEmpty());
     }
+
+    @Test
+    @DisplayName("should return true when exist client with informed cpf")
+    void shouldReturnTrueWhenExistsClientWithInformedCpf() {
+        this.clientRepository.save(new ClientEntity("86109026093", "John Smith"));
+        boolean existsByCpf= this.clientRepository.existsByCpf("86109026093");
+        assertTrue(existsByCpf);
+    }
+
+    @Test
+    @DisplayName("should return false when dont exist client with informed cpf")
+    void shouldReturnFalseWhenDontExistsClientWithInformedCpf() {
+        boolean existsByCpf= this.clientRepository.existsByCpf("86109026093");
+        assertFalse(existsByCpf);
+    }
 }

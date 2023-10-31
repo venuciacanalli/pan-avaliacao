@@ -42,7 +42,7 @@ class ClientResponseMapperTest {
 
     @Test
     @DisplayName("When run toResponse with null client it should return null")
-    void whenRunToDomainWithNullClientEntityItShouldReturnNull() {
+    void whenRunToDomainWithNullClientItShouldReturnNull() {
         assertNull(this.clientResponseMapper.toResponse(null));
         verify(addressResponseMapper, times(0)).toResponse(any());
     }

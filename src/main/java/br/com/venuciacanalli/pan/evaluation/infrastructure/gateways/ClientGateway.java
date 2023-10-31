@@ -26,4 +26,9 @@ public class ClientGateway implements IClientGateway {
         Optional<ClientEntity> optClientEntity = this.clientRepository.findByCpf(cpf);
         return optClientEntity.map(clientEntity -> clientEntityMapper.toDomain(clientEntity));
     }
+
+    @Override
+    public boolean existsByCpf(String cpf) {
+        return this.clientRepository.existsByCpf(cpf);
+    }
 }
