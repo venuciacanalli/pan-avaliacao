@@ -21,8 +21,6 @@ import java.util.UUID;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
@@ -62,7 +60,7 @@ class ClientControllerTest {
     @Test
     @DisplayName("should be thrown 404 error when cpf is invalid")
     void shouldBeThrown404ErrorWhenCpfIsInvalid() throws Exception {
-        var response = this.mvc.perform(post("/client/86109026093"))
+        var response = this.mvc.perform(get("/client/"))
                 .andReturn().getResponse();
         assertEquals(HttpStatus.NOT_FOUND.value(), response.getStatus());
     }
