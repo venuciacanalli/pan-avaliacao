@@ -6,5 +6,5 @@ import java.util.Optional;
 
 public interface IAddressHelperGateway {
 
-    public Optional<CEPAddress> findAddressByCep(String cep);
+    Optional<CEPAddress> findAddressByCep(String cep);
 }
