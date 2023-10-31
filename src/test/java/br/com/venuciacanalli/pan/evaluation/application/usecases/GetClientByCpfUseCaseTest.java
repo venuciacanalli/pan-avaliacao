@@ -1,6 +1,7 @@
 package br.com.venuciacanalli.pan.evaluation.application.usecases;
 
 import br.com.venuciacanalli.pan.evaluation.application.gateways.IClientGateway;
+import br.com.venuciacanalli.pan.evaluation.application.validators.StringArgumentValidator;
 import br.com.venuciacanalli.pan.evaluation.domain.entities.Address;
 import br.com.venuciacanalli.pan.evaluation.domain.entities.Client;
 import br.com.venuciacanalli.pan.evaluation.domain.exceptions.EmptyArgumentException;
@@ -25,6 +26,9 @@ class GetClientByCpfUseCaseTest {
 
     @Mock
     private IClientGateway clientGateway;
+
+    @Mock
+    private StringArgumentValidator stringArgumentValidator;
 
     @Test
     @DisplayName("When run get client by cpf it should return client")
@@ -57,6 +61,7 @@ class GetClientByCpfUseCaseTest {
         Client client = this.getClientByCpfUseCase.run(cpf);
 
         verify(clientGateway, times(1)).findClientByCpf(cpf);
+        verify(stringArgumentValidator, times(1)).validate("cpf", cpf);
         assertNotNull(client);
         assertEquals(cpf, client.cpf());
         assertEquals(name, client.name());
@@ -75,16 +80,8 @@ class GetClientByCpfUseCaseTest {
     @Test
     @DisplayName("When run get client by cpf with null cpf it should throw EmptyArgumentException")
     void whenRunGetClientByCpfWithNullCpfItShouldThrowEmptyArgumentException() {
-        Exception exception = assertThrows(EmptyArgumentException.class, () -> this.getClientByCpfUseCase.run(null));
-        assertEquals("The argument cpf can't be null or empty.", exception.getMessage());
-        verify(clientGateway, times(0)).findClientByCpf(any());
-    }
-
-    @Test
-    @DisplayName("When run get client by cpf with blank cpf it should throw EmptyArgumentException")
-    void whenRunGetClientByCpfWithBlankCpfItShouldThrowEmptyArgumentException() {
-        Exception exception = assertThrows(EmptyArgumentException.class, () -> this.getClientByCpfUseCase.run(" "));
-        assertEquals("The argument cpf can't be null or empty.", exception.getMessage());
+        doThrow(EmptyArgumentException.class).when(stringArgumentValidator).validate("cpf", null);
+        assertThrows(EmptyArgumentException.class, () -> this.getClientByCpfUseCase.run(null));
         verify(clientGateway, times(0)).findClientByCpf(any());
     }
 

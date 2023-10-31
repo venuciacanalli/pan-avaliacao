@@ -6,4 +6,6 @@ import java.util.Optional;
 
 public interface IClientGateway {
     Optional<Client> findClientByCpf(String cpf);
+
+    boolean existsByCpf(String cpf);
 }
