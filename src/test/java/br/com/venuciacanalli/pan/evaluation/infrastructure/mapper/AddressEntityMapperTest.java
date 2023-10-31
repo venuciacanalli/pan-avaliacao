@@ -8,6 +8,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.UUID;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -21,7 +23,7 @@ class AddressEntityMapperTest {
     @Test
     @DisplayName("When run toDomain it should return address")
     void whenRunToDomainItShouldReturnAddress() {
-        Long id = 1L;
+        UUID id = UUID.fromString("4cc493ca-6561-4e55-8a1e-aa527d9034f2");
         String street = "Rua da Cantareira";
         String number = "306";
         String complement = "Bl. 8 Ap 203";

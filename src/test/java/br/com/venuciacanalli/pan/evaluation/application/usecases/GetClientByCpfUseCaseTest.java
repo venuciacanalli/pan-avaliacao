@@ -14,6 +14,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -35,7 +36,7 @@ class GetClientByCpfUseCaseTest {
     void whenRunGetClientByCpfItShouldReturnClient() {
         String cpf = "52350631044";
         String name = "John Smith";
-        Long addressId = 1L;
+        UUID addressId = UUID.fromString("4cc493ca-6561-4e55-8a1e-aa527d9034f2");
         String street = "Rua da Cantareira";
         String number = "306";
         String complement = "Bl. 8 Ap 203";

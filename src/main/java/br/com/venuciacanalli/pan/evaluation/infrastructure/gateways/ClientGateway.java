@@ -29,6 +29,6 @@ public class ClientGateway implements IClientGateway {
 
     @Override
     public boolean existsByCpf(String cpf) {
-        return false;
+        return this.clientRepository.existsByCpf(cpf);
     }
 }
