@@ -8,26 +8,15 @@ import lombok.NoArgsConstructor;
 
 import java.util.UUID;
 
-@Table(name = "address")
-@Entity(name = "AddressEntity")
+@Table(name = "product")
+@Entity(name = "ProductEntity")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @EqualsAndHashCode(of = "id")
-public class AddressEntity {
-
+public class ProductEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-    private String street;
-    @Column(length = 10)
-    private String number;
-    @Column(length = 50)
-    private String complement;
-    private String neighborhood;
-    @Column(length = 8)
-    private String cep;
-    private String city;
-    @Column(length = 2)
-    private String uf;
+    private String name;
 }

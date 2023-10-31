@@ -16,11 +16,11 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.UUID;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
@@ -44,7 +44,7 @@ class ClientControllerTest {
     @DisplayName("find by cpf")
     void findByCpf() throws Exception {
         Client clientMock = mock(Client.class);
-        AddressResponse addressResponse = new AddressResponse(1L, "Rua da Cantareira", "306", "Bl. 8 Ap 203", "Centro","01024900", "São Paulo", "SP");
+        AddressResponse addressResponse = new AddressResponse(UUID.fromString("4cc493ca-6561-4e55-8a1e-aa527d9034f2"), "Rua da Cantareira", "306", "Bl. 8 Ap 203", "Centro","01024900", "São Paulo", "SP");
         ClientResponse clientResponse = new ClientResponse( "86109026093", "John Smith", addressResponse);
         when(getClientByCpfUseCase.run("86109026093")).thenReturn(clientMock);
         when(clientResponseMapper.toResponse(clientMock)).thenReturn(clientResponse);
@@ -60,7 +60,7 @@ class ClientControllerTest {
     @Test
     @DisplayName("should be thrown 404 error when cpf is invalid")
     void shouldBeThrown404ErrorWhenCpfIsInvalid() throws Exception {
-        var response = this.mvc.perform(post("/client/86109026093"))
+        var response = this.mvc.perform(get("/client/"))
                 .andReturn().getResponse();
         assertEquals(HttpStatus.NOT_FOUND.value(), response.getStatus());
     }
